@@ -1,1 +1,40 @@
-<p>register works!</p>
+<div class="flex items-center justify-center min-h-screen ">
+<div class="rounded-[16px] bg-white p-8 shadow-lg">
+    <div class="text-center mb-6 space-y-6">
+        <img src="/assets/admin/azubi-logo.svg" alt="Logo" class="mx-auto h-12 w-auto">
+        <h2 class="text-2xl font-bold mb-4">Admin Sign up</h2>
+        <p class="text-gray-600 text-sm mb-4">
+            Create Your Account to Manage and Access the Dashboard Effortlessly.
+        </p>
+    </div>
+
+    <form>
+        <!-- Form fields go here -->
+        <app-form-input label="First name" inputId="firstname" type="text" [required]="true">
+        </app-form-input>
+        <app-form-input label="Last name" inputId="lastname" type="text" [required]="true">
+        </app-form-input>
+
+        <app-form-input label="Email" inputId="email" type="email" [required]="true">
+        </app-form-input>
+
+        <app-form-input label="Password" inputId="password" type="password" [required]="true">
+        </app-form-input>
+
+        <app-form-input label="Confirm Password" inputId="confirmPassword" type="password" [required]="true">
+        </app-form-input>
+
+        <button type="submit"
+            class="btn-primary">Sign up</button>
+    </form>
+    <div class="mt-4 text-center">
+        <p class="text-[18px] text-black font-normal">
+            Already have an account?  
+            <a class="cursor-pointer text-custom-blue font-semibold" 
+            [routerLink]="['/admin/auth/login']" 
+            routerLinkActive="router-link-active" >
+           Login
+            </a>
+        </p>
+</div>
+</div>
