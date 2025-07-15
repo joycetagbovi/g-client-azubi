@@ -1,0 +1,37 @@
+ <div class="mb-4">
+      <label 
+        *ngIf="label" 
+        [for]="inputId" 
+        class="block text-sm font-normal text-black mb-2"
+        [class.text-red-600]="hasError"
+      >
+        {{ label }}
+        <span *ngIf="required" class="text-red-500 ml-1">*</span>
+      </label>
+      
+      <div class="relative">
+        <input
+        style="box-shadow: 0px 1px 10px 0px #00000026"
+          [id]="inputId"
+          [type]="type"
+          [disabled]="disabled"
+          [readonly]="readonly"
+          [value]="value"
+          (input)="onInput($event)"
+           class="mt-1 py-2.5 px-3  block w-full border-gray-300 rounded-[8px]  text-sm"
+          #inputElement
+        />
+        
+    
+        
+      
+      <!-- Error message -->
+      <div *ngIf="hasError" class="mt-1 text-sm text-red-600">
+        {{ errorMessage }}
+      </div>
+      
+      <!-- Help text -->
+      <div *ngIf="helpText && !hasError" class="mt-1 text-sm text-gray-500">
+        {{ helpText }}
+      </div>
+    </div>
