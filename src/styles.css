@@ -1,2 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
+
+body {
+  font-family: "Poppins", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif;
+    magin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1,
+h2, h3,h4,n5,h6 {
+  font-family: "Poppins", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif;
+}
+
+.auth-background {
+  background-image: url("/assets/admin/auth.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+}
+
+.container-box {
+    @apply flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0;
+}
+
+
