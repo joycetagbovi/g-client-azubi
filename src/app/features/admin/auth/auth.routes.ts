@@ -15,19 +15,22 @@ export const authRoutes: Routes = [
                 loadComponent: () => import('./register/register').then(c => c.Register)
             },
             {
+                path: 'reset-password',
+                loadComponent: () => import('./reset-password/reset-password').then(c => c.ResetPassword)
+            },
+            {
+                path: 'otp-verification',
+                loadComponent: () => import('./verify-otp/verify-otp').then(c => c.VerifyOtp)
+            },
+            {
                 path: '',
                 redirectTo: 'login',
                 pathMatch: 'full'
             }
         ]
     },
-    {
-        path: 'reset-password',
-        loadComponent: () => import('./reset-password/reset-password').then(c => c.ResetPassword)
-    },
-    {
-        path: 'otp-verification',
-        loadComponent: () => import('./verify-otp/verify-otp').then(c => c.VerifyOtp)
-    }
+
+
+
 ];
 
