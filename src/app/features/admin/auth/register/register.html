@@ -1,10 +1,10 @@
 <div class="flex items-center justify-center min-h-screen ">
-<div class="rounded-[16px] bg-white p-8 shadow-lg">
+<div class="rounded-[16px] bg-white p-8 shadow-lg max-w-full w-[495px] ">
     <div class="text-center mb-6 space-y-6">
         <img src="/assets/admin/azubi-logo.svg" alt="Logo" class="mx-auto h-12 w-auto">
-        <h2 class="text-2xl font-bold mb-4">Admin Sign up</h2>
-        <p class="text-gray-600 text-sm mb-4">
-            Create Your Account to Manage and Access the Dashboard Effortlessly.
+        <h2 class="text-2xl inter-bold mb-4 ">Admin Sign up</h2>
+        <p class="text-custom-grey text-[18px] mb-4 leading-normal inter-regular">
+            Create Your Account to Manage and Access <br> the Dashboard Effortlessly.
         </p>
     </div>
 
@@ -24,13 +24,13 @@
         <app-form-input label="Confirm Password" inputId="confirmPassword" type="password" [required]="true">
         </app-form-input>
 
-        <button type="submit"
-            class="btn-primary">Sign up</button>
+        <button type="submit"   [routerLink]="['/admin/auth/verify-otp']" 
+            class="btn-primary mt-4">Sign up</button>
     </form>
     <div class="mt-4 text-center">
-        <p class="text-[18px] text-black font-normal">
+        <p class="text-[18px] text-black inter-regular">
             Already have an account?  
-            <a class="cursor-pointer text-custom-blue font-semibold" 
+            <a class="cursor-pointer text-custom-blue inter-semibold" 
             [routerLink]="['/admin/auth/login']" 
             routerLinkActive="router-link-active" >
            Login
