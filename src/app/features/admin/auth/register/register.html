@@ -1,40 +1,150 @@
-<div class="flex items-center justify-center min-h-screen ">
-<div class="rounded-[16px] bg-white p-8 shadow-lg max-w-full w-[495px] ">
+<div class="flex items-center justify-center">
+  <div class="rounded-[16px] bg-white p-8 shadow-lg max-w-full w-[495px]">
     <div class="text-center mb-6 space-y-6">
-        <img src="/assets/admin/azubi-logo.svg" alt="Logo" class="mx-auto h-12 w-auto">
-        <h2 class="text-2xl inter-bold mb-4 ">Admin Sign up</h2>
-        <p class="text-custom-grey text-[18px] mb-4 leading-normal inter-regular">
-            Create Your Account to Manage and Access <br> the Dashboard Effortlessly.
-        </p>
+      <img src="/assets/admin/azubi-logo.svg" alt="Logo" class="mx-auto h-12 w-auto">
+      <h2 class="text-2xl inter-bold mb-4 text-black">Admin Sign up</h2>
+      <p class="text-custom-grey text-[18px] mb-4 leading-normal inter-regular">
+        Create Your Account to Manage and Access <br> the Dashboard Effortlessly.
+      </p>
     </div>
 
-    <form>
-        <!-- Form fields go here -->
-        <app-form-input label="First name" inputId="firstname" type="text" [required]="true">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- First Name -->
+      <div class="mb-4">
+        <app-form-input formControlName="firstName" label="First Name" type="text">
         </app-form-input>
-        <app-form-input label="Last name" inputId="lastname" type="text" [required]="true">
-        </app-form-input>
+        <div
+          *ngIf="registerForm.get('firstName')?.invalid && (registerForm.get('firstName')?.touched || registerForm.get('firstName')?.dirty)"
+          class="error">
+          <div *ngIf="registerForm.get('firstName')?.errors?.['required']">First name is required.</div>
+          <div *ngIf="registerForm.get('firstName')?.errors?.['minlength']">First name must be at least 2 characters.
+          </div>
+        </div>
+      </div>
 
-        <app-form-input label="Email" inputId="email" type="email" [required]="true">
+      <!-- Last Name -->
+      <div class="mb-4">
+        <app-form-input formControlName="lastName" label="Last Name" type="text">
         </app-form-input>
+        <div
+          *ngIf="registerForm.get('lastName')?.invalid && (registerForm.get('lastName')?.touched || registerForm.get('lastName')?.dirty)"
+          class="error">
+          <div *ngIf="registerForm.get('lastName')?.errors?.['required']">Last name is required.</div>
+          <div *ngIf="registerForm.get('lastName')?.errors?.['minlength']">Last name must be at least 2 characters.
+          </div>
+        </div>
+      </div>
 
-        <app-form-input label="Password" inputId="password" type="password" [required]="true">
+      <!-- Email -->
+      <div class="mb-4">
+        <app-form-input formControlName="email" label="Email" type="email">
         </app-form-input>
+        <div
+          *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)"
+          class="error">
+          <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</div>
+          <div *ngIf="registerForm.get('email')?.errors?.['pattern']">Please enter a valid email address.</div>
+        </div>
+      </div>
 
-        <app-form-input label="Confirm Password" inputId="confirmPassword" type="password" [required]="true">
+      <!-- Contact -->
+      <div class="mb-4">
+        <app-form-input formControlName="contact" label="Contact" type="text">
         </app-form-input>
+        <div
+          *ngIf="registerForm.get('contact')?.invalid && (registerForm.get('contact')?.touched || registerForm.get('contact')?.dirty)"
+          class="error">
+          <div *ngIf="registerForm.get('contact')?.errors?.['required']">Contact is required.</div>
+        </div>
+      </div>
 
-        <button type="submit"   [routerLink]="['/admin/auth/verify-otp']" 
-            class="btn-primary mt-4">Sign up</button>
+      <!-- Password -->
+      <div class="mb-4">
+        <div class="relative w-full">
+          <app-form-input formControlName="password" label="Password" [type]="isPasswordVisible ? 'text' : 'password'">
+          </app-form-input>
+          <!-- Show/Hide Toggle Button -->
+          <button type="button" (click)="togglePasswordVisibility()"
+            class="absolute right-3 top-2/3 transform -translate-y-1/2 text-gray-500 focus:outline-none"
+            aria-label="Toggle password visibility">
+            <!-- Simple Eye Icon (You can replace with SVG or icon lib) -->
+            <svg *ngIf="!isPasswordVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+
+            <svg *ngIf="isPasswordVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+            </svg>
+
+          </button>
+        </div>
+        <div
+          *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)"
+          class="error">
+          <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</div>
+          <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters.</div>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="mb-4">
+        <div class="relative w-full">
+          <app-form-input formControlName="confirmPassword" label="Confirm Password"
+            [type]="isPasswordVisible ? 'text' : 'password'">
+          </app-form-input>
+          <!-- Show/Hide Toggle Button -->
+          <button type="button" (click)="togglePasswordVisibility()"
+            class="absolute right-3 top-2/3 transform -translate-y-1/2 text-gray-500 focus:outline-none"
+            aria-label="Toggle password visibility">
+            <!-- Simple Eye Icon (You can replace with SVG or icon lib) -->
+            <svg *ngIf="!isPasswordVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+
+            <svg *ngIf="isPasswordVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+            </svg>
+          </button>
+
+        </div>
+        <div
+          *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)"
+          class="error">
+          <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password.</div>
+          <div *ngIf="registerForm.get('confirmPassword')?.errors?.['minlength']">Password must be at least 8
+            characters.</div>
+          <div *ngIf="registerForm.hasError('passwordsDontMatch')">Passwords do not match.</div>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!registerForm.valid || isLoading"
+        [ngClass]="{'opacity-50 cursor-not-allowed': !registerForm.valid  || isLoading, 'cursor-pointer': registerForm.valid  && !isLoading}"
+        class="btn-primary mt-4 w-full cursor-pointer">
+        {{ isLoading ? 'Creating Account...' : 'Sign up' }}
+      </button>
+
+      <div *ngIf="errorMessage" class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg">
+        {{ errorMessage }}
+      </div>
     </form>
+
     <div class="mt-4 text-center">
-        <p class="text-[18px] text-black inter-regular">
-            Already have an account?  
-            <a class="cursor-pointer text-custom-blue inter-semibold" 
-            [routerLink]="['/admin/auth/login']" 
-            routerLinkActive="router-link-active" >
-           Login
-            </a>
-        </p>
-</div>
+      <p class="text-[18px] text-black inter-regular">
+        Already have an account?
+        <a class="cursor-pointer text-custom-blue inter-semibold" [routerLink]="['/admin/auth/login']">
+          Login
+        </a>
+      </p>
+    </div>
+  </div>
 </div>

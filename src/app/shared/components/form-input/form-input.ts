@@ -1,38 +1,58 @@
-import { Component , Input} from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { Component , Input, forwardRef} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-form-input',
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+   standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './form-input.html',
-  styleUrl: './form-input.css'
+  styleUrl: './form-input.css',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FormInput),
+      multi: true
+    }
+  ]
 })
-export class FormInput {
-@Input() label: string = '';
-@Input() type: string = 'text';
-@Input() placeholder: string = '';
-@Input() control: FormControl = new FormControl();
-@Input() required: boolean = false;
-@Input() disabled: boolean = false;
-@Input() readonly: boolean = false;
+export class FormInput implements ControlValueAccessor {
+  @Input() label: string = '';
+  @Input() type: string = 'text';
+  @Input() name: string = '';
+  
 
 
-inputId: string = '';
-helpText: string = '';
-errorMessage: string = '';
-value: string = '';
 
-  get hasError(): boolean {
-    return this.control ? this.control.invalid && (this.control.dirty || this.control.touched) : false;
+  value: any = '';
+
+
+  onChange: any = () => {};
+  onTouched: any = () => {};
+
+ 
+
+  writeValue(value: any): void {
+    this.value = value || '';
+  }
+    registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 
 
-private onChange = (value: string) => {};
-
-  onInput(event: any): void {
-    const value = event.target.value;
-    this.value = value;
-    this.onChange(value);
+ onInput(event: Event): void {
+  const input = event.target as HTMLInputElement;
+    let newValue = input.value;
+    
+    this.value = newValue;
+    this.onChange(this.value);
+    this.onTouched();
   }
+
+
 }
