@@ -1,0 +1,9 @@
+[
+  {
+    "context": ["/api"],
+    "target": "https://tmp-se-projectapi.azurewebsites.net",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+]
