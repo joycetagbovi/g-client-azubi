@@ -1,11 +1,13 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet,RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet} from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {ToastModule} from 'primeng/toast';
+
 
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule,RouterOutlet,RouterLink,RouterLinkActive],
+  imports: [CommonModule,RouterOutlet, ToastModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
