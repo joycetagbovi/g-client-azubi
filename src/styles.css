@@ -153,6 +153,6 @@ p, span, a, li, div {
 }
 
 .error {
-    @apply text-red-600
+    @apply text-[#dc2626]
 }
 
