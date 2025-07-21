@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
+@source "node_modules/flowbite-angular";
 
 
 @theme {
@@ -137,4 +138,21 @@ p, span, a, li, div {
       box-shadow: 0px 1px 10px 0px #00000026;
 }
 
+
+/* In your global styles.css or app component styles */
+.p-toast .p-toast-message.p-toast-message-success {
+  --p-toast-success-background: #10b981;
+  --p-toast-success-border-color: #059669;
+  --p-toast-success-color: #ffffff;
+}
+
+.p-toast .p-toast-message.p-toast-message-error {
+  --p-toast-error-background: #ef4444;
+  --p-toast-error-border-color: #dc2626;
+  --p-toast-error-color: #ffffff;
+}
+
+.error {
+    @apply text-red-600
+}
 
