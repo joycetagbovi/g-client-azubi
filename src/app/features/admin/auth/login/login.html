@@ -2,27 +2,40 @@
 <div class="rounded-[16px] bg-white p-8 shadow-lg w-[495px] max-w-full">
     <div class="text-center mb-6 space-y-6">
         <img src="/assets/admin/azubi-logo.svg" alt="Logo" class="mx-auto h-12 w-auto">
-        <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
+        <h2 class="text-2xl font-bold mb-4 text-black">Admin Login</h2>
         <p class="text-custom-grey text-[18px] mb-4 ">
 Login to Manage and Access <br/>
 the Dashboard Effortlessly.
         </p>
     </div>
 
-    <form>
-        <!-- Form fields go here -->
-       
-        <app-form-input label="Email" inputId="email" type="email" [required]="true">
-        </app-form-input>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
 
-        <app-form-input label="Password" inputId="password" type="password" [required]="true">
+       <div class="mb-4">
+        <app-form-input label="Email" type="email"  formControlName="email">
         </app-form-input>
+                <div *ngIf="f['email'].touched && f['email'].invalid" class="text-red-500 text-sm mt-1">
+          <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
+          <div *ngIf="f['email'].errors?.['email']">Please enter a valid email address.</div>
+        </div>
+      </div>
 
+        <div class="mb-4">
+        <app-form-input label="Password" type="password" formControlName="password">
+        </app-form-input>
+        <div *ngIf="f['password'].touched && f['password'].invalid" class="text-red-500 text-sm mt-1">
+          <div *ngIf="f['password'].errors?.['required']">Password is required.</div>
+          <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters.</div>
+        </div>
+</div>
+     
         <div class="flex items-center justify-between mb-4">
-            <a class="text-sm text-custom-blue hover:underline"  [routerLink]="['/admin/auth/reset-password']" >Forgot password?</a>
+            <a class="text-sm text-custom-blue hover:underline"  [routerLink]="['/admin/auth/forgot-password']" >Forgot password?</a>
         </div>
         <button type="submit"
-            class="btn-primary">Sign up</button>
+            class="btn-primary" [disabled]="loginForm.invalid || isLoading">
+            {{ isLoading ? 'Logging in...' : 'Login' }}
+        </button>
     </form>
     <div class="mt-4 text-center">
         <p class="text-[18px] text-black font-normal">
