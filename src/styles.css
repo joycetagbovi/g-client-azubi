@@ -21,6 +21,10 @@
   --color-overlay-gray:  #D9D9D94D;
   --color-custom-blue: #01589A;
   --color-custom-grey: #7F7E83;
+  --color-custom-light-blue: #E5F6FF;
+  --color-custom-black: #1F1F36;
+  --color-custom-dark: #2E2C48;
+  --color-custom-success: #027A48;
 }
 
 
@@ -110,13 +114,14 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #F9FAFB; 
 }
 
 h1,h2, h3,h4,h5,h6 {
    font-family: "Figtree", sans-serif;
 }
 
-p, span, a, li, div {
+p, span, a, li, div,ul {
    font-family: "Figtree", sans-serif;
 }
 
@@ -154,5 +159,10 @@ p, span, a, li, div {
 
 .error {
     @apply text-[#dc2626]
+}
+
+.custom-shadow {
+   box-shadow: 0px 2px 6px 0px #0D0A2C14;
+
 }
 
