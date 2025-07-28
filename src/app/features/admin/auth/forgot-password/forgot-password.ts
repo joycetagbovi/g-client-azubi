@@ -5,6 +5,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {FormInput} from '../../../../shared/components/form-input/form-input';
+import { env } from '../../../../../env/env';
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,9 +19,9 @@ isLoading: boolean = false;
 
 constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
     private toastService: ToastService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) { }
 
   get f() {
@@ -40,18 +41,24 @@ constructor(
 
     this.isLoading = true;
     const email = this.form.get('email')?.value;
-    const baseUrl = window.location.origin; 
-    this.authService.requestPasswordReset({email, baseUrl}).subscribe({
+   const baseResetURL=  `${env.resetPasswordBaseUrl}/reset-password`;
+    this.authService.requestPasswordReset({email, baseResetURL}).subscribe({
       next: (response) => {
         this.toastService.success(response.message || 'Password reset link sent successfully.');
-        this.router.navigate(['/admin/auth/reset-password']);
         this.isLoading = false;
+          // Redirect to reset-password page with the token
+                this.router.navigate(['/reset-password']);
+ 
       },
       error: (err) => {
+        console.error('Error sending reset link:', err);
         this.toastService.error(err.message || 'Failed to send reset link.');
         this.isLoading = false;
       }
     });
   }
+
+
+ 
 
 }
