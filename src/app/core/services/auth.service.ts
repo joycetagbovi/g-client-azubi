@@ -27,7 +27,7 @@ export interface RegisterRequest {
 
 export interface ResetPasswordRequest {
     email: string;
-    baseUrl: string;
+    baseResetURL: string;
 }
 
 export interface SetNewPasswordRequest {
@@ -89,12 +89,17 @@ export class AuthService {
 
     // Set new password
     setNewPassword(data: SetNewPasswordRequest): Observable<ApiResponse> {
-        return this.apiService.post('/auth/reset-password', data);
+        return this.apiService.post(`/auth/reset-password/${data.token}`, data);
     }
 
     // Verify OTP
     verifyOtp(data: VerifyOtpRequest): Observable<ApiResponse> {
         return this.apiService.post('/auth/verify-email', data);
+    }
+
+    //Check User 
+    checkUser(): Observable<ApiResponse<User>> {
+        return this.apiService.get<User>('/auth/check-auth');
     }
 
     // Logout
@@ -107,6 +112,7 @@ export class AuthService {
     setAuth(user: User, token: string): void {
         localStorage.setItem('auth_token', token);
         localStorage.setItem('current_user', JSON.stringify(user));
+        localStorage.setItem('login_timestamp', new Date().toISOString());
         this.currentUserSubject.next(user);
         this.isAuthenticatedSubject.next(true);
     }
@@ -115,6 +121,7 @@ export class AuthService {
     clearAuth(): void {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('current_user');
+        localStorage.setItem('logout_timestamp', new Date().toISOString());
         this.currentUserSubject.next(null);
         this.isAuthenticatedSubject.next(false);
     }
@@ -150,14 +157,20 @@ export class AuthService {
         return localStorage.getItem('auth_token');
     }
 
-    // Refresh token (if needed)
-    refreshToken(): Observable<ApiResponse<{ token: string }>> {
-        return this.apiService.post<{ token: string }>('/auth/refresh-token', {});
+    // Get login timestamp
+    getLoginTimestamp(): string | null {
+        return localStorage.getItem('login_timestamp');
     }
+
+    // Get logout timestamp
+    getLogoutTimestamp(): string | null {
+        return localStorage.getItem('logout_timestamp');
+    }
+
 
     // Update user profile
     updateProfile(userData: Partial<User>): Observable<ApiResponse<User>> {
-        return this.apiService.put<User>('/auth/profile', userData);
+        return this.apiService.put<User>('/auth/update', userData);
     }
 
     // Change password
