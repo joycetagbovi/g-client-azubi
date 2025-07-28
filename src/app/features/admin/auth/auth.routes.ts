@@ -18,10 +18,10 @@ export const authRoutes: Routes = [
                 path: 'forgot-password',
                 loadComponent: () => import('./forgot-password/forgot-password').then(c => c.ForgotPassword)
             },
-            {
-                path: 'reset-password',
-                loadComponent: () => import('./reset-password/reset-password').then(c => c.ResetPassword)
-            },
+            // {
+            //     path: 'reset-password/:token',
+            //     loadComponent: () => import('./reset-password/reset-password').then(c => c.ResetPassword)
+            // },
             {
                 path: 'otp-verification',
                 loadComponent: () => import('./verify-otp/verify-otp').then(c => c.VerifyOtp)
