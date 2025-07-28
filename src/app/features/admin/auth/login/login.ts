@@ -55,10 +55,11 @@ export class Login {
       next: (response:any) => {
         if (response.success) {
           this.toastService.success('Login successful!');
+          this.authService.setAuth(response.user, response.token);
           this.router.navigate(['/admin/dashboard']);
         } else {
-          const errorMessage = response.errors?.[0]?.message || 'Login failed. Please try again.';
-          this.toastService.error(errorMessage);
+           const errorMessages = response.errors.map((error: { message: string }) => error.message).join('. ');
+          this.toastService.error(errorMessages || 'Login failed. Please try again.');
         }
         this.isLoading = false;
       },
