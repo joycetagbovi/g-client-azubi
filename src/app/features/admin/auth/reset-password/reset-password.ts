@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../core/services/auth.service';
 import { ToastService } from '../../../../core/services/toast.service';
 
+
 @Component({
   selector: 'app-reset-password',
   standalone: true,
@@ -41,10 +42,11 @@ export class ResetPassword implements OnInit {
   }
 
     ngOnInit(): void {
-       this.token = this.route.snapshot.queryParamMap.get('token') || '';
+      this.token = this.route.snapshot.paramMap.get('token') || '';
+
     if (!this.token) {
       this.toastService.error('Invalid or missing token.');
-      this.router.navigate(['/auth/forgot-password']);
+      this.router.navigate(['/admin/auth/forgot-password']);
       return;
     }
 
@@ -68,11 +70,11 @@ export class ResetPassword implements OnInit {
       this.toastService.error('Please fill in all fields correctly.');
       return;
     }
-
     this.isLoading = true;
-    const resetData = this.resetForm.value;
-    console.log('Reset Data:', resetData);
-
+  const resetData = {
+  token: this.token,
+  ...this.resetForm.value
+};
     this.authService.setNewPassword(resetData).subscribe({
       next: (response: any) => {
         if (response.success) {
@@ -89,8 +91,5 @@ export class ResetPassword implements OnInit {
       }
     });
   }
-
-
-
 
 }
