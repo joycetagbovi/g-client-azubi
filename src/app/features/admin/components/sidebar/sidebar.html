@@ -1,0 +1,32 @@
+<aside id="logo-sidebar"
+   class="   h-screen transition-transform -translate-x-full sm:translate-x-0"
+   aria-label="Sidebar">
+   <div class="h-full px-3 py-4 overflow-y-auto bg-[#01589A] rounded-r-md flex flex-col w-80">
+      <a href="/" class="flex items-center ps-2.5 mb-5">
+         <img src="/assets/admin/logo.png" class="w-full" alt="G-client" />
+      </a>
+      <ul class="space-y-5 font-regular">
+         <li *ngFor="let item of menuItems" [class.active]="isActive(item.path)">
+            <a [routerLink]="item.path" routerLinkActive="bg-custom-light-blue text-custom-blue"
+               [routerLinkActiveOptions]="{ exact: false }"
+               class="flex items-center p-3  group text-white hover:bg-custom-light-blue hover:text-custom-blue rounded-md transition duration-200 ease-in-out">
+               <img [src]=" item.icon" class="w-6 h-6" alt="{{ item.label }} icon" />
+               <span class="ms-3 ">{{ item.label }}</span>
+            </a>
+         </li>
+      </ul>
+      <!-- logout and user info -->
+      <div class="mt-auto pt-4">
+         <div class="flex items-center gap-4">
+            <p-avatar label="P" class="mr-2 w-6 h-6 rounded-full" size="large" shape="circle" />
+            <div class="font-medium ">
+               <div>{{ user?.firstName + user.lastName || 'User' }}</div>
+               <div class="text-sm text-gray-500 dark:text-gray-400">{{ user?.email }}</div>
+            </div>
+            <a (click)="logout()" class="cursor-pointer">
+               <img class="w-6 h-6" src="/assets/icons/logout.svg" alt="logout icon" />
+            </a>
+         </div>
+      </div>
+   </div>
+</aside>
