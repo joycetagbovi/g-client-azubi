@@ -1,1 +1,22 @@
-<p>courses works!</p>
+<div class="p-4">
+        <app-navbar title="Manage Courses "
+        paragraph="Filter, sort, and access detailed courses "></app-navbar>
+
+       <div class="p-6 space-y-10">
+        <app-search-add-bar placeholder="Search courses..." addLabel="Add Course" (search)="onSearch($event)"
+    (add)="onAddCourse()"></app-search-add-bar>
+ 
+<div class=" min-h-screen">
+  <app-table
+    [data]="filteredCourses()"
+    [columns]="courseColumns"
+    (onEdit)="onEditCourse($event)"
+    (onDelete)="onDeleteCourse($event)"
+  ></app-table>
+
+</div>
+</div>
+
+<app-modal-dialog [visible]="dialogVisible()" [title]="dialogTitle()" (close)="onDialogHide()">
+    <app-course-form  [course]="selectedCourse()"   [mode]="dialogMode()"   (onSubmit)="onDialogSubmit($event)"></app-course-form>
+</app-modal-dialog>
