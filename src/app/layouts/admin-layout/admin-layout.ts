@@ -6,7 +6,7 @@ import { AdminHeaderComponent } from './admin-header.component';
 
 @Component({
   selector: 'app-admin-layout',
-  imports: [Sidebar, RouterOutlet, CommonModule, AdminHeaderComponent],
+  imports: [Sidebar, RouterOutlet, CommonModule,],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css'
 })
