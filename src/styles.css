@@ -3,6 +3,8 @@
 @source "node_modules/flowbite-angular";
 
 
+
+
 @theme {
   /*  */
    --font-family-inter: "Inter", sans-serif;
@@ -107,6 +109,27 @@
   font-style: normal;
 }
 
+/* Force light mode regardless of system preference */
+:root {
+  color-scheme: light !important;
+  --surface-a: #ffffff !important;
+  --surface-b: #f8f9fa !important;
+  --surface-c: #e9ecef !important;
+  --surface-d: #dee2e6 !important;
+  --surface-e: #ffffff !important;
+  --surface-f: #ffffff !important;
+  --text-color: #495057 !important;
+  --text-color-secondary: #6c757d !important;
+  --primary-color: #007ad9 !important;
+  --surface-ground: #ffffff !important;
+  --surface-section: #f8f9fa !important;
+  --surface-card: #ffffff !important;
+}
+
+html {
+  color-scheme: light !important;
+}
+
 
 
 body {
@@ -166,5 +189,192 @@ p, span, a, li, div,ul {
 
 }
 
+.table-row {
+  @apply px-4 py-3 text-left text-sm font-medium text-gray-700;
+}
 
+/* Prevent system dark mode from affecting PrimeNG */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-ground: #ffffff;
+    --surface-section: #f8f9fa;
+    --surface-card: #ffffff;
+    --text-color: #495057;
+  }
+}
 
+/* Most specific override with footer and striped rows */
+html body .p-component.p-datatable table.p-datatable-table {
+  background-color: white !important;
+  color: #333 !important;
+}
+
+/* Table Header */
+html body .p-component.p-datatable .p-datatable-thead > tr > th {
+  background-color: #f8f9fa !important;
+  color: #495057 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+/* Table Body - Default Row */
+html body .p-component.p-datatable .p-datatable-tbody > tr > td {
+  background-color: white !important;
+  color: #495057 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+/* Table Body - Striped Rows (Even rows) */
+html body .p-component.p-datatable .p-datatable-tbody > tr:nth-child(even) > td {
+  background-color: #f8f9fa !important;
+  color: #495057 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+/* Table Body - Hover Effect */
+html body .p-component.p-datatable .p-datatable-tbody > tr:hover > td {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+}
+
+/* Table Footer */
+html body .p-component.p-datatable .p-datatable-tfoot > tr > td {
+  background-color: #f8f9fa !important;
+  color: #495057 !important;
+  border-top: 1px solid #dee2e6 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  font-weight: 600 !important;
+}
+
+/* Table Footer Header Cells (if using th in footer) */
+html body .p-component.p-datatable .p-datatable-tfoot > tr > th {
+  background-color: #f8f9fa !important;
+  color: #495057 !important;
+  border-top: 1px solid #dee2e6 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  font-weight: 600 !important;
+}
+
+/* Pagination - Force Light Mode */
+html body .p-component.p-paginator {
+  background-color: white !important;
+  color: #495057 !important;
+  /* border: 1px solid #dee2e6 !important; */
+  border-radius: 6px !important;
+}
+
+/* Pagination - Page Numbers */
+html body .p-component.p-paginator .p-paginator-pages .p-paginator-page {
+  background-color: transparent !important;
+  color: #495057 !important;
+  border: 1px solid transparent !important;
+}
+
+/* Pagination - Active/Selected Page */
+html body .p-component.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: #007ad9 !important;
+  color: white !important;
+  border-color: #007ad9 !important;
+}
+
+/* Pagination - Page Hover */
+html body .p-component.p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+  border-color: #dee2e6 !important;
+}
+
+/* Pagination - Navigation Buttons (First, Prev, Next, Last) */
+html body .p-component.p-paginator .p-paginator-first,
+html body .p-component.p-paginator .p-paginator-prev,
+html body .p-component.p-paginator .p-paginator-next,
+html body .p-component.p-paginator .p-paginator-last {
+  background-color: transparent !important;
+  color: #495057 !important;
+  border: 1px solid transparent !important;
+}
+
+/* Pagination - Navigation Buttons Hover */
+html body .p-component.p-paginator .p-paginator-first:not(.p-disabled):hover,
+html body .p-component.p-paginator .p-paginator-prev:not(.p-disabled):hover,
+html body .p-component.p-paginator .p-paginator-next:not(.p-disabled):hover,
+html body .p-component.p-paginator .p-paginator-last:not(.p-disabled):hover {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+  border-color: #dee2e6 !important;
+}
+
+/* Pagination - Disabled Navigation Buttons */
+html body .p-component.p-paginator .p-paginator-first.p-disabled,
+html body .p-component.p-paginator .p-paginator-prev.p-disabled,
+html body .p-component.p-paginator .p-paginator-next.p-disabled,
+html body .p-component.p-paginator .p-paginator-last.p-disabled {
+  background-color: transparent !important;
+  color: #6c757d !important;
+  border-color: transparent !important;
+}
+
+/* Pagination - Rows Per Page Dropdown */
+html body .p-component.p-paginator .p-dropdown {
+  background-color: white !important;
+  color: #495057 !important;
+  border: 1px solid #ced4da !important;
+}
+
+html body .p-component.p-paginator .p-dropdown:hover {
+  border-color: #007ad9 !important;
+}
+
+html body .p-component.p-paginator .p-dropdown.p-focus {
+  outline: 0 none !important;
+  outline-offset: 0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 122, 217, 0.2) !important;
+  border-color: #007ad9 !important;
+}
+
+/* Pagination - Dropdown Panel */
+html body .p-dropdown-panel {
+  background-color: white !important;
+  color: #495057 !important;
+  border: 1px solid #ced4da !important;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Pagination - Dropdown Items */
+html body .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  background-color: transparent !important;
+  color: #495057 !important;
+}
+
+html body .p-dropdown-panel .p-dropdown-items .p-dropdown-item:hover {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+}
+
+html body .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  background-color: #007ad9 !important;
+  color: white !important;
+}
+
+/* Pagination - Current Page Info Text */
+html body .p-component.p-paginator .p-paginator-current {
+  background-color: transparent !important;
+  color: #495057 !important;
+}
+
+/* Pagination - Jump to Page Input (if enabled) */
+html body .p-component.p-paginator .p-paginator-page-input {
+  background-color: white !important;
+  color: #495057 !important;
+  border: 1px solid #ced4da !important;
+}
+
+html body .p-component.p-paginator .p-paginator-page-input:hover {
+  border-color: #007ad9 !important;
+}
+
+html body .p-component.p-paginator .p-paginator-page-input:focus {
+  outline: 0 none !important;
+  outline-offset: 0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 122, 217, 0.2) !important;
+  border-color: #007ad9 !important;
+}
