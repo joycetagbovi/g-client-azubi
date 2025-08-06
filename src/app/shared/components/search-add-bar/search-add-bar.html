@@ -1,0 +1,20 @@
+<div class="flex items-center justify-between mb-6">
+    <div class="relative custom-shadow rounded-[8px]">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
+        </div>
+    <input type="text" [placeholder]="placeholder" class="block p-4 ps-10  rounded-[8px] py-2 max-w-full  w-[383px] text-[16px] text-[#7F7E83]  focus:outline-none focus:ring-0 "
+        [value]="searchValue()" (input)="onInput($event)" />
+        </div>
+    <button
+        class="bg-custom-blue font-semibold text-[16px] text-white px-6 py-2 rounded-[8px] custom-shadow border-2 border-[#ECF2EF] flex items-center gap-2 w-[233px] justify-center max-w-full"
+        (click)="onAdd()">
+        <svg class="size-4" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
+        </svg>
+        {{ addLabel }}
+    </button>
+</div>
