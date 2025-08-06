@@ -7,9 +7,11 @@
       </a>
       <ul class="space-y-5 font-regular">
          <li *ngFor="let item of menuItems" [class.active]="isActive(item.path)">
-            <a [routerLink]="item.path" routerLinkActive="bg-custom-light-blue text-custom-blue"
+            <a [routerLink]="item.path" routerLinkActive="bg-custom-light-blue !text-[#01589A]"
                [routerLinkActiveOptions]="{ exact: false }"
-               class="flex items-center p-3  group text-white hover:bg-custom-light-blue hover:text-custom-blue rounded-md transition duration-200 ease-in-out">
+                 class="flex items-center p-3 group rounded-md transition duration-200 ease-in-out
+           hover:bg-custom-light-blue hover:text-custom-blue text-white"
+               >
                <img [src]=" item.icon" class="w-6 h-6" alt="{{ item.label }} icon" />
                <span class="ms-3 ">{{ item.label }}</span>
             </a>
