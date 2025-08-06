@@ -114,7 +114,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #F9FAFB; 
+    background-color: #F9FAFB !important; 
 }
 
 h1,h2, h3,h4,h5,h6 {
@@ -165,4 +165,6 @@ p, span, a, li, div,ul {
    box-shadow: 0px 2px 6px 0px #0D0A2C14;
 
 }
+
+
 
