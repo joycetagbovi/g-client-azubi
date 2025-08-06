@@ -1,34 +1,29 @@
 <div class="max-w-sm bg-white rounded-[20px] custom-shadow">
-    <a href="#" class="block relative">
-        <img class="w-full rounded-t-[20px]"  [src]="image" [alt]="name" />
-         <span class="absolute top-2 right-2 bg-white text-custom-black text-[14px] font-semibold me-2 px-2.5 py-0.5 rounded-full">{{price}}</span>
-    </a>
-    <div class="p-5">
-            <h5 class="mb-2 text-[18px] font-semibold text-custom-black tracking-tight ">{{ name }}</h5>
-            <p class="mb-3 font-normal text-black" *ngIf="description">
-          {{ description }}
-            </p>
-            <div class="text-custom-black flex gap-1 items-center mb-3">
-          <svg class="size-4" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"></path>
-</svg>
-<span class="text-custom-grey font-normal text-[14px]"> {{ duration }} weeks</span>
-</div>
+  <a href="#" class="block relative">
+    <img class="w-full rounded-t-[20px] h-[180px] object-cover" [src]="image" [alt]="name" />
+    <span
+      class="absolute top-2 right-2 bg-white text-custom-black text-[14px] font-semibold me-2 px-2.5 py-0.5 rounded-full">${{price}}</span>
+  </a>
+  <div class="p-5">
+    <h5 class="mb-2 text-[18px] font-semibold text-custom-black tracking-tight ">{{ name }}</h5>
+    <p class="mb-3 font-normal text-black truncate" *ngIf="description">
+      {{ description }}
+    </p>
 
-   <div class="text-custom-black flex gap-1 items-center" *ngIf="instructor">
-      <svg class="size-4" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"></path>
-</svg>
-<span class="text-custom-grey ">{{ instructor }}</span>
-</div>
-<div class="flex gap-2">
-    <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">Default</span>
-<span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">Dark</span>
-</div>
-       
+    <div class="text-custom-black flex gap-1 items-center mb-1">
+      <img src="/assets/icons/calendar.svg" alt="Edit Icon" class="inline-block w-5 h-5">
+      <span class="text-custom-grey font-normal text-[14px]">{{ duration }} </span>
     </div>
+    <div class="text-custom-black flex gap-1 items-center mb-1">
+      <img src="/assets/icons/user.svg" alt="Edit Icon" class="inline-block w-5 h-5">
+      <span class="text-custom-grey font-normal text-[14px]">{{ instructor }}</span>
+    </div>
+
+    <div class="flex gap-2 mt-4">
+      <span *ngFor="let stack of stacks"
+        class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">{{stack}}</span>
+    </div>
+
+
+  </div>
 </div>
-
-
-
-
