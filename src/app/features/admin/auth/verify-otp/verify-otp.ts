@@ -3,14 +3,14 @@ import { FormGroup, FormBuilder , Validators} from '@angular/forms';
 import { AuthService, RegisterRequest } from '../../../../core/services/auth.service';
 import { FormInput } from '../../../../shared/components/form-input/form-input';
 import {CommonModule }from '@angular/common';
-import { Router,ActivatedRoute, RouterLink } from '@angular/router';
+import { Router,ActivatedRoute, } from '@angular/router';
 import { ToastService } from '../../../../core/services/toast.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-verify-otp',
   standalone: true,
-  imports: [FormInput, CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [FormInput, CommonModule,  ReactiveFormsModule],
   templateUrl: './verify-otp.html',
   styleUrl: './verify-otp.css'
 })
