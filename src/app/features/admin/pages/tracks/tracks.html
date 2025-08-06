@@ -1,1 +1,42 @@
-<p>tracks works!</p>
+<div class="p-4">
+    <app-navbar title="Welcome Admin 👋 "
+        paragraph="Track activity, trends, and popular destinations in real time"></app-navbar>
+
+    <div class="p-6 space-y-6">
+        <app-search-add-bar placeholder="Search Track" addLabel="Add Track" (search)="onSearch($event)"
+            (add)="onAddTrack()"></app-search-add-bar>
+
+        <ng-container *ngIf="loading()">
+            <div class="flex justify-center items-center py-8">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-custom-blue mx-auto mb-4"></div>
+                <p>Loading tracks...</p>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!loading() && tracks().length === 0">
+            <div class="flex justify-center items-center py-8">
+                <p>No tracks found. Add your first track!</p>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!loading() && tracks().length > 0">
+            <div class="grid grid-cols-4 gap-8 my-8">
+                <app-track-card *ngFor="let track of filteredTracks()"
+                    [image]="track.image"
+                    [name]="track.name"
+                    [price]="track.price"
+                    [description]="track.description"
+                    [instructor]="track.instructor"
+                    [duration]="track.duration"
+                 
+                    (click)="onViewTrack(track)"
+                    class="cursor-pointer">
+                </app-track-card>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<app-modal-dialog [visible]="dialogVisible()" [title]="dialogTitle()" [mode]="dialogMode()" (close)="onDialogHide()">
+    <app-track-form [track]="selectedTrackFormDto()"  [mode]="dialogMode()" (onSubmit)="onDialogSubmit($event)"></app-track-form>
+</app-modal-dialog>

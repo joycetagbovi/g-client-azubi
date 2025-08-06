@@ -1,0 +1,95 @@
+<div class="p-4">
+    <app-navbar title="Manage Tracks" paragraph="Filter, sort, and access detailed tracks"></app-navbar>
+
+    <div class="p-6 flex justify-center">
+        <ng-container *ngIf="loading()">
+            <div class="flex justify-center items-center py-12">
+                <div class="text-center">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-custom-blue mx-auto mb-4" role="status" aria-label="Loading track details"></div>
+                    <p class="text-gray-600">Loading track details...</p>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="error()">
+            <div class="flex justify-center items-center py-12">
+                <div class="text-center">
+                    <p class="text-red-600 mb-4">Failed to load track details</p>
+                    <button (click)="loadTrackDetails()"
+                        class="bg-custom-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        Try Again
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!loading() && !error() && track()">
+            <div class="space-y-8">
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="flex flex-col">
+                        <img [src]="track()!.image" [alt]="track()!.name" class="w-full h-[521px] rounded-t-lg object-cover">
+                        <div class="p-6">
+                            <h1 class="text-[40px] font-bold text-custom-black mb-2">{{ track()!.name }}</h1>
+                            <div class="flex items-center gap-4 justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="text-custom-black flex gap-1 items-center mb-1">
+                                         <img src="/assets/icons/calendar.svg" alt="Edit Icon" class="inline-block w-5 h-5">
+                                        <span class="text-custom-grey font-normal text-[14px]">{{ track()!.duration }} weeks</span>
+                                    </div>
+                                    <div class="text-custom-black flex gap-1 items-center mb-1" *ngIf="track()!.instructor">
+                                         <img src="/assets/icons/user.svg" alt="Edit Icon" class="inline-block w-5 h-5">
+                                        <span class="text-custom-grey font-normal text-[14px]">{{ track()!.instructor }}</span>
+                                    </div>
+                                </div>
+                                <span class="text-custom-black text-[24px] font-semibold">${{ track()!.price }}</span>
+                            </div>
+                            <!-- rating -->
+                            <div class="flex justify-between items-center mt-4">
+
+                             <!-- couress -->
+                           <div class="flex gap-2" *ngIf="track()!.courses && track()!.courses[0]?.stacks">
+                                    <span *ngFor="let stack of track()!.courses[0].stacks"
+                                          class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                        {{ stack }}
+                                    </span>
+                                </div>
+                            <!-- rating -->
+                                 <div class="flex items-center" [attr.aria-label]="'Average rating: ' + averageRating() + ' out of 5 stars'">
+                                    <svg *ngFor="let star of [1, 2, 3, 4, 5]" class="w-4 h-4 fill-current"
+                                        [ngClass]="{'text-yellow-400': star <= averageRating(), 'text-gray-300': star > averageRating()}"
+                                        viewBox="0 0 20 20">
+                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-gray-700 leading-relaxed">{{ track()!.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 p-6 pt-0 justify-end">
+                        <a (click)="onEditTrack()"
+                            class="boder boder-[#EEF9FF] bg-[#F9FBFC] p-5  ">
+                           <img src="/assets/icons/pen.svg" alt="Edit Icon" class="inline-block w-5 h-5">
+                    </a>
+                        <a (click)="onDeleteTrack()"
+                            class="boder boder-[#EEF9FF] bg-[#F9FBFC] p-5">
+                                <img src="/assets/icons/trash.svg" alt="Edit Icon" class="inline-block w-5 h-5">
+                </a>
+                    </div>
+                </div>
+
+               
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<app-modal-dialog [visible]="dialogVisible()" [title]="dialogTitle()" [mode]="dialogMode()" (close)="onDialogHide()">
+     <app-track-form 
+        [mode]="dialogMode()"
+        [track]="trackForForm()"
+        (onSubmit)="onTrackFormSubmit($event)"
+        >
+    </app-track-form>
+</app-modal-dialog>
