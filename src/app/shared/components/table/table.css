@@ -1,0 +1,15 @@
+
+/* app.component.css */
+
+/* :host ::ng-deep .p-datatable .p-datatable-wrapper {
+  background-color: white !important;
+}
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+  background-color: white !important;
+} */
+
+/* test-table.component.css */
+.force-light {
+  background: white !important;
+  color: black !important;
+}

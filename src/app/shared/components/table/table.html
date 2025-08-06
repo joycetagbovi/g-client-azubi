@@ -1,0 +1,64 @@
+<div class=" rounded-[12px] custom-shadow border border-[#EEF9FF] overflow-hidden ">
+  <p-table 
+    [value]="data" 
+    stripedRows
+    [paginator]="true" 
+    [rows]="rows" 
+    [responsiveLayout]="'scroll'" 
+    styleClass="min-w-full divide-y divide-gray-200 bg-white"
+    class="force-light"
+  >
+    <ng-template pTemplate="header">
+      <tr class="">
+        <th *ngFor="let col of columns" class="px-4 py-3 text-left text-[12px] font-normal text-gray-700 uppercase">
+          {{ col.header }}
+        </th>
+        <th class="px-4 py-3 text-left">Actions</th>
+      </tr>
+    </ng-template>
+
+
+    <ng-template pTemplate="body" let-item>
+      <tr class="">
+        <td *ngFor="let col of columns" class="px-4 py-3 text-left text-sm text-gray-600">
+          <div *ngIf="col.isImage; else defaultCell" class="flex items-center gap-3">
+            <img [src]="getNestedValue(item, col.field)" [alt]="col.header" class="w-10 h-10 rounded-full object-cover">
+            <span class="font-semibold text-black">{{ getNestedValue(item, 'title') }}</span>
+          </div>
+          <ng-template #defaultCell>
+            <ng-container *ngIf="col.body && col.body(item); else fieldValue">
+              {{ col.body(item) }}
+            </ng-container>
+            <ng-template #fieldValue>
+              {{ getNestedValue(item, col.field) }}
+            </ng-template>
+          </ng-template>
+        </td>
+        
+        <td class="p-4 whitespace-nowrap text-sm font-medium">
+          <div class="flex items-center gap-3">
+            <button (click)="handleEdit(item)" class="cursor-pointer" aria-label="Edit">
+              <img src="/assets/icons/pen.svg" alt="Edit Icon" class="w-4 h-4">
+            </button>
+            <button (click)="handleDelete(item)" class="cursor-pointer" aria-label="Delete">
+              <img src="/assets/icons/trash.svg" alt="Delete Icon" class="w-4 h-4">
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+   
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td [attr.colspan]="columns.length + 1" class="text-center p-8">
+                <div class="flex flex-col items-center gap-2">
+                    <span class="text-gray-500">No records found.</span>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+
+    
+  </p-table>
+</div>
