@@ -19,15 +19,11 @@ export class ApiService {
 
     constructor(private http: HttpClient) {
         console.log(`API Service initialized with base URL: ${this.baseUrl}`);
-     }
+    }
 
     private getHeaders(): HttpHeaders {
         const token = localStorage.getItem('auth_token');
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        });
+        let headers = new HttpHeaders();
 
         if (token) {
             headers = headers.set('Authorization', `Bearer ${token}`);
