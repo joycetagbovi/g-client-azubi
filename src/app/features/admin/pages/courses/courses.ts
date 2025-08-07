@@ -1,4 +1,4 @@
-import { Component, signal, OnInit, computed, ViewChild } from '@angular/core';
+import { Component, signal, OnInit, computed, ViewChild, TemplateRef } from '@angular/core';
 import { SearchAddBar } from '../../../../shared/components/search-add-bar/search-add-bar';
 import { CommonModule } from '@angular/common';
 import { Navbar } from '../../components/navbar/navbar';
@@ -11,16 +11,18 @@ import { CourseForm } from '../../components/forms/courses/add-update-courses/co
 import { ModalDialog } from '../../../../shared/components/modal-dialog/modal-dialog';
 import { Table, TableColumn } from '../../../../shared/components/table/table';
 
-
 @Component({
   selector: 'app-courses',
-  imports: [SearchAddBar, CommonModule, Navbar, CourseForm, ModalDialog, Table],
+  imports: [SearchAddBar, CommonModule, Navbar, CourseForm, ModalDialog, Table, DateFormatPipe],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
   providers: [DateFormatPipe]
 })
+
 export class Courses implements OnInit {
+  @ViewChild('dateTemplate', { static: true }) dateTemplate!: TemplateRef<any>
   @ViewChild(CourseForm) courseForm!: CourseForm;
+
   searchValue = signal('');
   allCourses = signal<Course[]>([]);
   loading = signal(false);
@@ -28,8 +30,6 @@ export class Courses implements OnInit {
   dialogMode = signal<'add' | 'update'>('add');
   selectedCourse = signal<Course | null>(null);
   
-
-
   dialogTitle = computed(() =>
     this.dialogMode() === 'add' ? 'Add New Course' : `Update: ${this.selectedCourse()?.title || ''}`
   );
@@ -47,8 +47,8 @@ export class Courses implements OnInit {
     };
   });
 
-
-  courseColumns: TableColumn[] = [
+  get courseColumns(): TableColumn[]{
+    return [
     {
       field: 'image',
       header: 'Course',
@@ -59,10 +59,13 @@ export class Courses implements OnInit {
     {
       field: 'createdAt',
       header: 'Date Joined',
-      body: (course: Course) => this.dateFormatPipe.transform(course.createdAt),
+      bodyTemplate: this.dateTemplate
+    
     },
   ];
 
+  }
+  
 
   filteredCourses = computed(() => {
     const filter = this.searchValue().toLowerCase();
@@ -121,8 +124,6 @@ export class Courses implements OnInit {
     this.dialogMode.set('update');
     this.dialogVisible.set(true);
   }
-
-
 
   async onDeleteCourse(course: Course): Promise<void> {
     if (!confirm(`Are you sure you want to delete ? ${course.title}`)) return;

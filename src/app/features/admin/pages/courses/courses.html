@@ -17,6 +17,12 @@
 </div>
 </div>
 
+
+  <ng-template #dateTemplate let-course>
+    {{ course.createdAt | dateFormat }}
+  </ng-template>
+
+
 <app-modal-dialog [visible]="dialogVisible()" [title]="dialogTitle()" (close)="onDialogHide()">
     <app-course-form  [course]="selectedCourse()"   [mode]="dialogMode()"   (onSubmit)="onDialogSubmit($event)"></app-course-form>
 </app-modal-dialog>
