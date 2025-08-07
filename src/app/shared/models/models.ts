@@ -18,6 +18,15 @@ export interface UserBase {
   profileImage?: string;
 }
 
+export interface LearnerFormDto {
+    firstName: string;
+    description: string;
+    location: string;
+    contact: string;
+    disabled: boolean;
+    profileImage?: File | string;
+}
+
 // Admin (extends base with extra fields)
 export interface Admin extends UserBase {
   description?: string;
@@ -68,7 +77,7 @@ export interface Track {
 export interface CourseFormDto {
   title: string;
   image: string;
-  track: string; 
+  track: string;
   description: string;
 }
 
@@ -109,9 +118,13 @@ export interface Rating {
  * Invoice Model
  */
 export interface InvoiceFormDto {
-  learner:string;
+  learner: string;
   paystackCallbackUrl: string | any;
-   paymentDetails: string;
+  paymentDetails: string;
+  dueDate: string;
+  amount: number;
+  status?: string;
+
 }
 
 export interface Invoice {
