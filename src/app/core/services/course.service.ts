@@ -14,9 +14,7 @@ export class CourseService {
     getCourses(): Observable<Course[]> {
  return this.apiService.get<any>(this.baseUrl).pipe(
             tap(response => {
-                const res = response as any;
-                // console.log('coursesService: Raw API response:', res);
-           
+                const res = response as any      
             }),
             map(res => {
                 const response = res as any;
