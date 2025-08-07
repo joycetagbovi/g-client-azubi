@@ -1,1 +1,46 @@
-<p>invoices works!</p>
+<div class="p-4">
+  <app-navbar title="Manage invoices  " paragraph="Filter, sort, and access detailed invoices "></app-navbar>
+
+  <div class="p-6 space-y-10">
+    <app-search-add-bar placeholder="Search invoice..." addLabel="Add Invoice" (search)="onSearch($event)"
+      (add)="onAddInvoice()"></app-search-add-bar>
+
+    <div class=" min-h-screen">
+      <app-table [data]="filteredInvoices()" [columns]="invoiceColumns" (onEdit)="onEditInvoice($event)"
+        (onDelete)="onDeleteInvoice($event)"></app-table>
+
+    </div>
+  </div>
+
+  <ng-template #learnerTemplate let-invoice>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <img [src]="invoice.learner.profileImage || 'https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png'" alt="Profile Image"
+        style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+      <span>{{ invoice.learner.firstName }} {{ invoice.learner.lastName }}</span>
+    </div>
+  </ng-template>
+
+  <ng-template #dateTemplate let-invoice>
+    {{ invoice.dueDate | dateFormat }}
+  </ng-template>
+
+  <ng-template #amountTemplate let-invoice>
+    <span>${{ invoice.amount }}</span>
+  </ng-template>
+
+  <ng-template #statusTemplate let-invoice>
+    <span 
+    [ngClass]="{
+      'bg-[#ECFDF3] text-[#027A48] capitalize rounded-full py-1.5 px-3 ': invoice.status === 'paid',
+      'bg-red-500 text-red-100 capitalize rounded-full': invoice.status === 'overdue',
+      'bg-[#F2F4F7] text-[#344054] px-3 text-center rounded-full py-1.5': invoice.status === 'pending'
+    }">
+  {{ invoice.status  }}
+  </span>
+  </ng-template>
+
+
+  <app-modal-dialog [visible]="dialogVisible()" [title]="dialogTitle()" (close)="onDialogHide()">
+    <app-invoice-form [invoice]="selectedInvoiceForForm()" [mode]="dialogMode()"
+      (onSubmit)="onDialogSubmit($event)"></app-invoice-form>
+  </app-modal-dialog>
