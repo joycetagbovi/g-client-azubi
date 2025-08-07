@@ -1,28 +1,29 @@
-import { Component , Input, Output, EventEmitter,TemplateRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
-import {ButtonModule} from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
+// import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe'; // Assuming you have a SafeHtmlPipe for innerHTML
 
 export interface TableColumn {
   field: string;
   header: string;
-  isImage?: boolean; 
+  isImage?: boolean;
   showTitle?: boolean;
-  displayWithImage?: string; 
+  displayWithImage?: string;
   sortable?: boolean;
   style?: { [key: string]: string };
-  body?: (item: any) => string | TemplateRef<any>;
+  bodyTemplate?: TemplateRef<any>; 
 }
 
 @Component({
   selector: 'app-table',
+  standalone: true,
   imports: [CommonModule, TableModule, ButtonModule],
   templateUrl: './table.html',
   styleUrl: './table.css'
 })
 export class Table {
-
-   @Input() data: any[] = [];
+  @Input() data: any[] = [];
   @Input() columns: TableColumn[] = [];
   @Input() rows: number = 10;
   @Output() onEdit = new EventEmitter<any>();
@@ -30,10 +31,10 @@ export class Table {
 
 
   getNestedValue(item: any, field: string): any {
-    return field?.split('.').reduce((obj, key) => obj ? obj[key] : '', item);
+    return field?.split('.').reduce((obj, key) => obj ? obj[key] : undefined, item);
   }
 
-   handleEdit(item: any): void {
+  handleEdit(item: any): void {
     this.onEdit.emit(item);
   }
 
@@ -41,11 +42,7 @@ export class Table {
     this.onDelete.emit(item);
   }
 
+  isTemplateRef(value: any): value is TemplateRef<any> {
+    return value instanceof TemplateRef;
+  }
 }
-
-
-
-
-
-   
-
