@@ -1,0 +1,43 @@
+<div>
+
+  <form [formGroup]="invoiceForm" (ngSubmit)="onFormSubmit()" class="space-y-4">
+    <div class="mb-4">
+      <label class="block text-sm font-normal text-black mb-2">
+        Select Learners
+      </label>
+
+      <select formControlName="learner" id="learner"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 shadow-2xl ">
+        <option *ngIf="loadingLearners()">Loading...</option>
+        <option *ngFor="let learner of learners()" [value]="learner._id">{{ learner.firstName}} {{learner.lastName}}
+        </option>
+      </select>
+    </div>
+    <app-form-input type="number" label="Amount" name="amount" formControlName="amount"></app-form-input>
+    <app-form-input label="Due Date" type="date" name="dueDate" formControlName="dueDate"></app-form-input>
+
+    <div class="mb-4">
+      <label class="block text-sm font-normal text-black mb-2">
+        Status
+      </label>
+
+      <select formControlName="status" id="status"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 shadow-2xl ">
+        <option value="paid">Paid</option>
+        <option value="pending">Pending</option>
+      </select>
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-normal text-black mb-2" for="description">
+        Payment Details
+      </label>
+      <textarea style="box-shadow: 0px 1px 10px 0px #00000026" name="paymentDetails" formControlName="paymentDetails"
+        class="mt-1 py-2.5 px-3 block w-full text-black rounded-[8px] text-sm" rows="4"></textarea>
+
+    </div>
+    <button type="submit" [disabled]="!invoiceForm.valid"
+      class="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
+      {{ mode === 'add' ? 'Add Invoice' : 'Update Invoice' }}
+    </button>
+  </form>
+</div>
