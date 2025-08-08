@@ -18,6 +18,26 @@ export interface UserBase {
   profileImage?: string;
 }
 
+export interface AllLearner{
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: string;
+    isVerified: boolean;
+    lastLogin: Date | string;
+    createdAt: Date | string;
+    updatedAt: Date | string;
+    __v: number;
+    contact: string;
+    description: string;
+    disabled: boolean;
+    location: string;
+    profileImage: string;
+}
+
+export type LearnerData = Learner | AllLearner;
+
 export interface LearnerFormDto {
     firstName: string;
     description: string;
@@ -60,7 +80,7 @@ export interface Track {
   name: string;
   description: string;
   instructor: string;
-  price: any; // can be a number or a formatted string
+  price: any | null; 
   duration: string;
   image: string;
   admin: Admin;
