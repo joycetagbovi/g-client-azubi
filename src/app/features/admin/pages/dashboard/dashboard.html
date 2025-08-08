@@ -7,91 +7,111 @@
             <div class="flex flex-col bg-white rounded-[20px] custom-shadow p-6">
                 <h2 class="text-[16px] font-medium mb-4 text-custom-dark">Total Learner</h2>
                 <div class="flex items-center justify-between">
-                    <p class="text-[36px] font-semibold text-custom-black">12,450</p>
+                    <!-- Bind the learner count from the signal -->
+                    <p class="text-[36px] font-semibold text-custom-black">
+                        {{ dashboardStats()?.totalLearners || 0 | number }}
+                    </p>
                     <img src="/assets/icons/Vector.svg" alt="Users Icon" class="w-12 h-12">
                 </div>
-                <p class="text-[14px] text-custom-grey mt-2 font-medium"><span class="text-custom-success">
-                        <fa-icon [icon]="faArrowUp" class="text-[14px]"></fa-icon> 15%
+                <p class="text-[14px] text-custom-grey mt-2 font-medium">
+                    <span [ngClass]="getGrowthClass(dashboardStats()?.learnerGrowth || 0)">
+                        <fa-icon [icon]="getGrowthIcon(dashboardStats()?.learnerGrowth || 0)"
+                            class="text-[14px]"></fa-icon>
+                        {{ formatGrowth(dashboardStats()?.learnerGrowth || 0) }}
                     </span>
-                 vs   from last month</p>
-
+                    vs from last month
+                </p>
             </div>
             <div class="flex flex-col bg-white rounded-[20px] custom-shadow p-6">
-                <h2 class="text-[16px] font-medium mb-4 text-custom-dark">Total Learner</h2>
+                <h2 class="text-[16px] font-medium mb-4 text-custom-dark">Revenue</h2>
                 <div class="flex items-center justify-between">
-                    <p class="text-[36px] font-semibold text-custom-black">12,450</p>
-                    <img src="/assets/icons/Vector.svg" alt="Users Icon" class="w-12 h-12">
+                    <!-- Bind the total revenue from the signal -->
+                    <p class="text-[36px] font-semibold text-custom-black">
+                        {{ dashboardStats()?.totalRevenue || 0 | currency:'USD':'symbol':'1.0-0' }}
+                    </p>
+                    <img src="/assets/icons/currency-dollar.svg" alt="Users Icon" class="w-12 h-12">
                 </div>
-                <p class="text-[14px] text-custom-grey mt-2 font-medium"><span class="text-custom-success">+15%</span>
-                    from last month</p>
+                <p class="text-[14px] text-custom-grey mt-2 font-medium">
+                    <span [ngClass]="getGrowthClass(dashboardStats()?.revenueGrowth || 0)">
+                        <fa-icon [icon]="getGrowthIcon(dashboardStats()?.revenueGrowth || 0)"
+                            class="text-[14px]"></fa-icon>
+                        {{ formatGrowth(dashboardStats()?.revenueGrowth || 0) }}
+                    </span>
+                    from last month
+                </p>
             </div>
             <div class="flex flex-col bg-white rounded-[20px] custom-shadow p-6">
-                <h2 class="text-[16px] font-medium mb-4 text-custom-dark">Total Learner</h2>
+                <h2 class="text-[16px] font-medium mb-4 text-custom-dark">Invoice</h2>
                 <div class="flex items-center justify-between">
-                    <p class="text-[36px] font-semibold text-custom-black">12,450</p>
-                    <img src="/assets/icons/Vector.svg" alt="Users Icon" class="w-12 h-12">
+                    <!-- Bind the total invoices from the signal -->
+                    <p class="text-[36px] font-semibold text-custom-black">
+                        {{ dashboardStats()?.totalInvoices || 0 | number }}
+                    </p>
+                    <img src="/assets/icons/Frame.svg" alt="Users Icon" class="w-12 h-12">
                 </div>
-                <p class="text-[14px] text-custom-grey mt-2 font-medium"><span class="text-custom-success">+15%</span>
-                    from last month</p>
-
+                <p class="text-[14px] text-custom-grey mt-2 font-medium">
+                    <span [ngClass]="getGrowthClass(dashboardStats()?.invoiceGrowth || 0)">
+                        <fa-icon [icon]="getGrowthIcon(dashboardStats()?.invoiceGrowth || 0)"
+                            class="text-[14px]"></fa-icon>
+                        {{ formatGrowth(dashboardStats()?.invoiceGrowth || 0) }}
+                    </span>
+                    from last month
+                </p>
             </div>
         </div>
         <!-- track cards -->
-         <div class="">
+        <div class="">
             <h4 class="text-[20px] text-custom-black font-semibold mb-3">Tracks</h4>
-        <div class=" grid grid-cols-4 gap-8">
-
-             <app-track-card 
-                 image="/assets/admin/img.png"
-                name="Software Engineering"
-                price="$200"
-                duration="12"></app-track-card>
-                <app-track-card 
-                    image="/assets/admin/img.png"   
-                name="Data Science"
-                price="$250"
-                duration="10"></app-track-card>
-                <app-track-card 
-                    image="/assets/admin/img.png"
-                name="Web Development"
-                price="$300"
-                duration="8"></app-track-card>
-                <app-track-card 
-                    image="/assets/admin/img.png"
-                name="Mobile App Development"
-                price="$280"
-                duration="9"></app-track-card>
-            
-        </div>
+            <div class=" grid grid-cols-4 gap-8">
+                <app-track-card *ngFor="let track of tracks() | slice:0:4" [image]="track.image" [name]="track.name"
+                    [price]="track.price " [duration]="track.duration"></app-track-card>
+            </div>
         </div>
         <!-- recent active -->
         <div class="grid grid-cols-2 gap-8">
             <div class="bg-white rounded-[20px] custom-shadow p-6">
                 <h2 class="text-[20px] font-semibold text-custom-black mb-4">Recent Revenue</h2>
-                
+                <hr class="border-[0.5px] border-custom-grey">
+                <!-- Pass revenue data to the chart component -->
+                 <div class="mt-6">
+                <app-chart [data]="revenueData()"></app-chart>
                 </div>
-                
-    <div class="bg-white rounded-[20px] custom-shadow p-6">
-        <h2 class="text-[20px] font-semibold text-custom-black mb-4">Latest Invoice</h2>
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                        
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <!-- Example row -->
-                    <tr class="text-black"   *ngFor="let invoice of invoices">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ invoice.profile.name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ invoice.amount }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            </div>
+            <!-- lastest invoice -->
+            <div class="bg-white rounded-[20px] custom-shadow p-6">
+                <h2 class="text-[20px] font-semibold text-custom-black mb-4">Latest Invoice</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Name
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Amount
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr class="text-black" *ngFor="let invoice of latestInvoices()">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex gap-3 items-center">
+                                        <img class="w-[40px] h-[40px] rounded-full object-cover"
+                                            [src]="invoice.learner.profileImage || 'https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png'"
+                                            [alt]="invoice.learner.firstName" />
+                                        <span>{{ invoice.learner.firstName }} {{ invoice.learner.lastName}}</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ invoice.amount |
+                                    currency:'USD':'symbol':'1.2-2' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-    </div>
