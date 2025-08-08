@@ -13,9 +13,12 @@
   </div>
 
   <ng-template #learnerTemplate let-invoice>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <img [src]="invoice.learner.profileImage || 'https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png'" alt="Profile Image"
-        style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+    <div class="flex items-center gap-3" >
+      <img 
+      class="'w-[40px] h-[40px] rounded-full object-cover" 
+      [src]="invoice.learner.profileImage || 'https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png'" 
+      alt="Profile Image"
+      />
       <span>{{ invoice.learner.firstName }} {{ invoice.learner.lastName }}</span>
     </div>
   </ng-template>
