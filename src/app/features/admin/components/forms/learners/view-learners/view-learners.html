@@ -1,0 +1,31 @@
+<div *ngIf="learner" class="p-4 space-y-4">
+      <div class="flex items-center space-x-4 flex-col">
+        <img class="w-[224px] h-[224px] max-w-full rounded-full object-cover" 
+             [src]="learner.profileImage || 'https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png'" 
+             [alt]="learner.firstName" />
+        <div>
+          <h3 class="text-[21.78px] font-semibold text-custom-black">{{ learner.firstName }} {{ learner.lastName }}</h3>
+          <p class="text-[14px] text-[#2E2C48] font-normal">{{ learner.email }}</p>
+        </div>
+      </div>
+      <div class="custom-shadow p-5 rounded-[13px]">
+        <dl class="space-y-5">
+          <div class="flex gap-6 items-center">
+            <dt class="w-1/4 custom-badge">Contact</dt>
+            <dd class="w-2/3 font-semibold text-[16px] text-custom-black">{{ learner.contact }}</dd>
+          </div>
+          <div class="flex gap-6 items-center">
+            <dt class="w-1/4 custom-badge">Location</dt>
+            <dd class="w-2/3 font-semibold text-[16px] text-custom-black">{{ learner.location }}</dd>
+          </div>
+          <div class="flex gap-6 items-center">
+            <dt class="w-1/4 custom-badge">Joined Date</dt>
+            <dd class="w-2/3 font-semibold text-[16px] text-custom-black">{{ learner.createdAt | date: 'mediumDate' }}</dd>
+          </div>
+          <div class="flex gap-6 items-center">
+            <dt class="w-1/4 custom-badge">Description</dt>
+            <dd class="w-2/3 font-semibold text-[16px] text-custom-black">{{ learner.description }}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
