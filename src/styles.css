@@ -378,3 +378,7 @@ html body .p-component.p-paginator .p-paginator-page-input:focus {
   box-shadow: 0 0 0 0.2rem rgba(0, 122, 217, 0.2) !important;
   border-color: #007ad9 !important;
 }
+
+.custom-badge{
+  @apply bg-[#F2F4F7] px-2 py-1 text-[12px] text-[#344054] font-medium text-center rounded-[16px]
+}
