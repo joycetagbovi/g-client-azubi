@@ -1,0 +1,72 @@
+<div>
+  <form [formGroup]="learnerForm" (ngSubmit)="onFormSubmit()" class="space-y-4">
+    <app-form-input 
+      label="First Name" 
+      name="firstName" 
+      formControlName="firstName">
+    </app-form-input>
+
+    <app-form-input 
+      label="Contact" 
+      name="contact" 
+      formControlName="contact">
+    </app-form-input>
+
+    <app-form-input 
+      label="Location" 
+      name="location" 
+      formControlName="location">
+    </app-form-input>
+
+    <div class="mb-4">
+      <label class="block text-sm font-normal text-black mb-2">
+        Description
+      </label>
+      <textarea
+        formControlName="description"
+        class="mt-1 py-2.5 px-3 block w-full text-black rounded-[8px] text-sm"
+        rows="4"
+        style="box-shadow: 0px 1px 10px 0px #00000026"
+      ></textarea>
+    </div>
+
+    <div class="mb-4">
+      <label class="flex items-center space-x-2">
+        <input 
+          type="checkbox" 
+          formControlName="disabled"
+          class="form-checkbox"
+        >
+        <span class="text-sm">Disabled</span>
+      </label>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-normal text-black mb-2">
+        Profile Image
+      </label>
+      <input 
+        type="file"
+        accept="image/*"
+        (change)="onFileChange($event)"
+        class="mt-1 py-2.5 px-3 block w-full text-black rounded-[8px] text-sm"
+        style="box-shadow: 0px 1px 10px 0px #00000026"
+      >
+      <div *ngIf="selectedFile" class="mt-2 text-sm text-gray-500">
+        Selected file: {{ selectedFile.name }}
+      </div>
+    </div>
+
+    <button 
+      type="submit" 
+      [disabled]="!learnerForm.valid || isLoading"
+      class="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
+      <span *ngIf="!isLoading">
+        {{ mode === 'add' ? 'Add Learner' : 'Update Learner' }}
+      </span>
+      <span *ngIf="isLoading">
+        Submitting...
+      </span>
+    </button>
+  </form>
+</div>
