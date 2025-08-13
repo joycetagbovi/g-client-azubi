@@ -43,6 +43,10 @@ export const adminRoutes: Routes = [
         loadComponent: () => import('./pages/learners/learners').then(m => m.Learners)
       },
       {
+        path: 'update-profile',
+        loadComponent: () => import ('./pages/update-profile/update-profile').then(m => m.UpdateProfile)
+      },
+      {
         path: 'reports',
         loadComponent: () => import('./pages/reports/reports').then(m => m.Reports)
       }
